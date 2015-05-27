@@ -1,4 +1,5 @@
 # Swift Natural Numbers
+## Or, How to Make An Ouroboros
 A Swift playground for implementing the natural numbers and more concepts in number theory. The inspiration for this was taken from fewbutripe.com
 
 # shouts out to the eternal return
