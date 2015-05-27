@@ -89,12 +89,16 @@ func +(a : Integer, b : Integer) -> Integer {
 	return Integer(a: a.a + b.a, b: a.b + b.b)
 }
 
-prefix func -(a : Natural) -> Integer {
-	return Integer(a: .Zero, b: a)
+prefix func -(a : Integer) -> Integer {
+	return Integer(a: a.b, b: a.a)
 }
 
 func -(a : Integer, b : Integer) -> Integer {
-	return Integer(a: a.a + b.b, b: a.b + b.a)
+	return a + -b
+}
+
+prefix func -(a : Natural) -> Integer {
+	return Integer(a: .Zero, b: a)
 }
 
 func -(a : Natural, b : Natural) -> Integer {
@@ -105,6 +109,9 @@ func ==(a : Integer, b : Integer) -> Bool {
 	return a.a + b.b == a.b + b.a
 }
 
+println(Integer(Two) == Integer(One) + Integer(One))
+println(-(-One) == Integer(One))
+println(-One == Integer(One) - Integer(Two))
 println(-One == (One - Two))
 println(-Natural.Zero == Integer(Natural.Zero))
 
