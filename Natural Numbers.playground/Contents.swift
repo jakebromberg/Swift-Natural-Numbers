@@ -50,15 +50,14 @@ func ==(a : Natural, b : Natural) -> Bool {
 	}
 }
 
+extension Natural : Equatable {
+}
+
 let One : Natural = .Successor(Box(.Zero))
 let Two : Natural = .Successor(Box(One))
 
 assert(Natural.Zero == Natural.Zero, "Natural.Zero == Natural.Zero")
 assert(One == One, "One == One")
-
-extension Natural : Equatable {
-}
-
 assert(One != Two, "One != Two")
 
 func +(a : Natural, b : Natural) -> Natural {
