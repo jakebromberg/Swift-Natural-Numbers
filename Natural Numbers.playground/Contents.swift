@@ -78,6 +78,13 @@ struct Integer {
 	let b : Natural
 }
 
+extension Integer {
+	init(_ natural : Natural) {
+		a = natural
+		b = .Zero
+	}
+}
+
 func +(a : Integer, b : Integer) -> Integer {
 	return Integer(a: a.a + b.a, b: a.b + b.b)
 }
