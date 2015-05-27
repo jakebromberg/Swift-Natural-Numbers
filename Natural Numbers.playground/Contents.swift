@@ -19,8 +19,23 @@ enum Natural {
 	case Successor( Box<Natural> )
 }
 
+func ==(a : Natural, b : Natural) -> Bool {
+	switch (a, b) {
+	case (.Zero, .Zero): return true
+	case let (.Successor(predOfA), .Successor(predOfB)): return predOfA.unbox == predOfB.unbox
+	default: return false
+	}
+}
+
+extension Natural : Equatable {
+}
+
 let One : Natural = .Successor(Box(.Zero))
 let Two : Natural = .Successor(Box(One))
+
+assert(Natural.Zero == Natural.Zero, "Natural.Zero == Natural.Zero")
+assert(One == One, "One == One")
+assert(One != Two, "One != Two")
 
 func +(a : Natural, b : Natural) -> Natural {
 	switch (a, b) {
@@ -31,22 +46,13 @@ func +(a : Natural, b : Natural) -> Natural {
 	}
 }
 
+assert(Natural.Zero + One == One, "Natural.Zero + One == One")
+
 func -(a : Natural, b : Natural) -> Natural {
 	switch (a, b) {
 	case let (_, .Zero): return a
 	case let (.Successor(predOfA), .Successor(predOfB)): return predOfA.unbox - predOfB.unbox
 	default: println("EXIT_FAILURE"); exit(EXIT_FAILURE);
-	}
-}
-
-extension Natural : Equatable {
-}
-
-func ==(a : Natural, b : Natural) -> Bool {
-	switch (a, b) {
-	case (.Zero, .Zero): return true
-	case let (.Successor(predOfA), .Successor(predOfB)): return predOfA.unbox == predOfB.unbox
-	default: return false
 	}
 }
 
@@ -73,7 +79,6 @@ func >(a : Natural, b : Natural) -> Bool {
 	return b < a
 }
 
-assert(Natural.Zero + One == One, "Natural.Zero + One == One")
 assert(One != Two, "One != Two")
 assert(One + One == Two, "One + One == Two")
 assert(One < Two, "One < Two")
