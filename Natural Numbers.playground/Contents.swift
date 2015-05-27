@@ -97,6 +97,10 @@ func >(a : Natural, b : Natural) -> Bool {
 
 assert(Two > One, "Two > One")
 
+func *(a : Natural, b : Natural) -> Natural {
+	return Natural.Zero
+}
+
 struct Integer {
 	let a : Natural
 	let b : Natural
