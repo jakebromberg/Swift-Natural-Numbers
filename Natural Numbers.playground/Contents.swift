@@ -73,15 +73,15 @@ func >(a : Natural, b : Natural) -> Bool {
 	return b < a
 }
 
-println(Natural.Zero + One == One)
-println(One != Two)
-println(One + One == Two)
-println(One < Two)
-println(Two > One)
+assert(Natural.Zero + One == One, "Natural.Zero + One == One")
+assert(One != Two, "One != Two")
+assert(One + One == Two, "One + One == Two")
+assert(One < Two, "One < Two")
+assert(Two > One, "Two > One")
 
-println(Natural.Zero <= .Zero)
-println((Two - One) == One)
-println((.Zero - .Zero) == .Zero)
+assert(Natural.Zero <= .Zero, "Natural.Zero <= .Zero")
+assert((Two - One) == One, "(Two - One) == One")
+assert((.Zero - .Zero) == .Zero, "(.Zero - .Zero) == .Zero")
 
 struct Integer {
 	let a : Natural
@@ -119,11 +119,11 @@ func ==(a : Integer, b : Integer) -> Bool {
 	return a.a + b.b == a.b + b.a
 }
 
-println(Integer(Two) == Integer(One) + Integer(One))
-println(-(-One) == Integer(One))
-println(-One == Integer(One) - Integer(Two))
-println(-One == (One - Two))
-println(-Natural.Zero == Integer(Natural.Zero))
+assert(Integer(Two) == Integer(One) + Integer(One), "Integer(Two) == Integer(One) + Integer(One)")
+assert(-(-One) == Integer(One), "-(-One) == Integer(One)")
+assert(-One == Integer(One) - Integer(Two), "-One == Integer(One) - Integer(Two)")
+assert(-One == (One - Two), "-One == (One - Two)")
+assert(-Natural.Zero == Integer(Natural.Zero), "-Natural.Zero == Integer(Natural.Zero)")
 
 
-println(-One + -One == -Two)
+assert(-One + -One == -Two, "-One + -One == -Two")
