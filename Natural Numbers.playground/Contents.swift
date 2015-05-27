@@ -78,6 +78,10 @@ struct Integer {
 	let b : Natural
 }
 
+func +(a : Integer, b : Integer) -> Integer {
+	return Integer(a: a.a + b.a, b: a.b + b.b)
+}
+
 prefix func -(a : Natural) -> Integer {
 	return Integer(a: .Zero, b: a)
 }
@@ -95,3 +99,6 @@ func ==(a : Integer, b : Integer) -> Bool {
 }
 
 println(-One == (One - Two))
+
+
+println(-One + -One == -Two)
