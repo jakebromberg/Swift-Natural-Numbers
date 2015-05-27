@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Swift
 
 class Box<T> {
 	let unbox : T
@@ -38,6 +39,9 @@ func -(a : Natural, b : Natural) -> Natural {
 	}
 }
 
+extension Natural : Equatable {
+}
+
 func ==(a : Natural, b : Natural) -> Bool {
 	return !(a < b || a > b)
 }
@@ -59,12 +63,35 @@ func >(a : Natural, b : Natural) -> Bool {
 	return b < a
 }
 
-//println(Natural.Zero + One == One)
+println(Natural.Zero + One == One)
+println(One != Two)
 println(One + One == Two)
-println(One == Two)
 println(One < Two)
 println(Two > One)
 
-//println(Natural.Zero <= .Zero)
-//println((Two - One) == One)
-//println((.Zero - .Zero) == .Zero)
+println(Natural.Zero <= .Zero)
+println((Two - One) == One)
+println((.Zero - .Zero) == .Zero)
+
+struct Integer {
+	let a : Natural
+	let b : Natural
+}
+
+prefix func -(a : Natural) -> Integer {
+	return Integer(a: .Zero, b: a)
+}
+
+func -(a : Integer, b : Integer) -> Integer {
+	return Integer(a: a.a + b.b, b: a.b + b.a)
+}
+
+func -(a : Natural, b : Natural) -> Integer {
+	return Integer(a: a, b: b)
+}
+
+func ==(a : Integer, b : Integer) -> Bool {
+	return a.a + b.b == a.b + b.a
+}
+
+println(-One == (One - Two))
