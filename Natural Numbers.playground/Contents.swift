@@ -43,16 +43,26 @@ extension Natural : Equatable {
 }
 
 func ==(a : Natural, b : Natural) -> Bool {
-	return !(a < b || a > b)
-}
-
-func <(a : Natural, b : Natural) -> Bool {
 	switch (a, b) {
-	case (.Zero, .Zero): return false
-	case (.Zero, _): return true
-	case let (.Successor(predOfA), .Successor(predOfB)): return predOfA.unbox < predOfB.unbox
+	case (.Zero, .Zero): return true
+	case let (.Successor(predOfA), .Successor(predOfB)): return predOfA.unbox == predOfB.unbox
 	default: return false
 	}
+}
+
+func min(a : Natural, b : Natural) -> Natural {
+	switch (a, b) {
+	case (.Zero, _): return b
+	case (_, .Zero): return a
+	case let (.Successor(predOfA), .Successor(predOfB)): return min(predOfA.unbox, predOfB.unbox)
+	default: return a
+	}
+}
+
+assert(min(One, Two) == One, "min(One, Two) == One")
+
+func <(a : Natural, b : Natural) -> Bool {
+	return min(a, b) == a
 }
 
 func <=(a : Natural, b : Natural) -> Bool {
