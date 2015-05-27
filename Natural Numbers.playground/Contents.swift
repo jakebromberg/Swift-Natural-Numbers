@@ -106,6 +106,7 @@ func ==(a : Integer, b : Integer) -> Bool {
 }
 
 println(-One == (One - Two))
+println(-Natural.Zero == Integer(Natural.Zero))
 
 
 println(-One + -One == -Two)
