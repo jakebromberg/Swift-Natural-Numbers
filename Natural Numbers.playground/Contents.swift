@@ -19,6 +19,29 @@ enum Natural {
 	case Successor( Box<Natural> )
 }
 
+extension Natural : Printable {
+	func toInt() -> Int {
+		switch (self) {
+		case .Zero: return 0
+		case let .Successor(predOfSelf): return 1 + predOfSelf.unbox.toInt()
+		}
+	}
+	
+	var description : String {
+		get {
+			return "\(self.toInt())"
+		}
+	}
+}
+
+extension Natural : DebugPrintable {
+	var debugDescription : String {
+		get {
+			return self.description
+		}
+	}
+}
+
 func ==(a : Natural, b : Natural) -> Bool {
 	switch (a, b) {
 	case (.Zero, .Zero): return true
