@@ -128,8 +128,29 @@ func >(a : Natural, b : Natural) -> Bool {
 assert(Two > One, "Two > One")
 
 func *(a : Natural, b : Natural) -> Natural {
-	return Natural.Zero
+	switch (a, b) {
+	case (.Zero, _): return .Zero
+	case (_, .Zero): return .Zero
+	case let (a, .Successor(predB)): return a + a * predB.unbox
+	}
 }
+
+let Three : Natural = .Successor(Box(Two))
+let Four : Natural = .Successor(Box(Three))
+
+assert(.Zero * .Zero == .Zero, ".Zero * .Zero == .Zero")
+assert(.Zero * Two == .Zero, ".Zero * Two == .Zero")
+assert(Two * Two == Four, "Two * Two == Four")
+
+func /(a : Natural, b : Natural) -> Natural {
+	if (a < b) {
+		return .Zero
+	} else {
+		return One + (a - b) / b
+	}
+}
+
+assert(Four / Two == Two, "")
 
 struct Integer {
 	let a : Natural
