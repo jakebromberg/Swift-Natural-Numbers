@@ -84,15 +84,22 @@ func -(a : Natural, b : Natural) -> Natural {
 assert(.Zero - .Zero == .Zero, "(.Zero - .Zero) == .Zero")
 assert((Two - One) == One, "(Two - One) == One")
 
-func min(a : Natural, b : Natural) -> Natural {
+func <(a : Natural, b : Natural) -> Bool {
 	switch (a, b) {
-	case (.Zero, _): return b
-	case (_, .Zero): return a
-	case let (.Successor(predOfA), .Successor(predOfB)): return min(predOfA.unbox, predOfB.unbox)
-	default: return a
+	case (.Zero, .Zero): return false
+	case (.Zero, _): return true
+	case let (.Successor(predOfA), .Successor(predOfB)): return predOfA.unbox < predOfB.unbox
+	default: return false
 	}
 }
 
+assert(One < Two, "One < Two")
+
+func min(a : Natural, b : Natural) -> Natural {
+	return a < b ? a : b
+}
+
+assert(min(Two, One) == One, "min(Two, One) == One")
 assert(min(One, Two) == One, "min(One, Two) == One")
 
 func max(a : Natural, b : Natural) -> Natural {
