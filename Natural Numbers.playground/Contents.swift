@@ -108,11 +108,11 @@ func max(a : Natural, b : Natural) -> Natural {
 
 assert(max(One, Two) == Two, "max(One, Two) == Two")
 
-func <(a : Natural, b : Natural) -> Bool {
-	return min(a, b) == a
+func isCommunicative<T : Equatable>(a : T, b : T, op : (T, T) -> T) -> Bool {
+	return op(a, b) == op(b, a)
 }
 
-assert(One < Two, "One < Two")
+assert(isCommunicative(.Zero, One, min), "operationIsCommunicative(.Zero, One, min)")
 
 func <=(a : Natural, b : Natural) -> Bool {
 	return a == b || a < b
