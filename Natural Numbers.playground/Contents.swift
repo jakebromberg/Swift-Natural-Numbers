@@ -19,7 +19,7 @@ enum Natural {
 	case Successor( Box<Natural> )
 }
 
-extension Natural : Printable {
+extension Natural : CustomStringConvertible {
 	func toInt() -> Int {
 		switch (self) {
 		case .Zero: return 0
@@ -34,7 +34,7 @@ extension Natural : Printable {
 	}
 }
 
-extension Natural : DebugPrintable {
+extension Natural : CustomDebugStringConvertible {
 	var debugDescription : String {
 		get {
 			return self.description
@@ -64,7 +64,7 @@ func +(a : Natural, b : Natural) -> Natural {
 	switch (a, b) {
 	case (_, .Zero): return a
 	case (.Zero, _): return b
-	case let (.Successor(predOfA), .Successor(predOfB)): return predOfA.unbox + .Successor(Box(b))
+	case let (.Successor(predOfA), .Successor(_)): return predOfA.unbox + .Successor(Box(b))
 	default: return .Zero
 	}
 }
@@ -74,9 +74,9 @@ assert(One + One == Two, "One + One == Two")
 
 func -(a : Natural, b : Natural) -> Natural {
 	switch (a, b) {
-	case let (_, .Zero): return a
+	case (_, .Zero): return a
 	case let (.Successor(predOfA), .Successor(predOfB)): return predOfA.unbox - predOfB.unbox
-	default: println("EXIT_FAILURE"); exit(EXIT_FAILURE);
+	default: print("EXIT_FAILURE"); exit(EXIT_FAILURE);
 	}
 }
 
@@ -98,20 +98,20 @@ func min(a : Natural, b : Natural) -> Natural {
 	return a < b ? a : b
 }
 
-assert(min(Two, One) == One, "min(Two, One) == One")
-assert(min(One, Two) == One, "min(One, Two) == One")
+assert(min(Two, b: One) == One, "min(Two, One) == One")
+assert(min(One, b: Two) == One, "min(One, Two) == One")
 
 func max(a : Natural, b : Natural) -> Natural {
-	return min(a, b) == a ? b : a
+	return min(a, b: b) == a ? b : a
 }
 
-assert(max(One, Two) == Two, "max(One, Two) == Two")
+assert(max(One, b: Two) == Two, "max(One, Two) == Two")
 
 func isCommunicative<T : Equatable>(a : T, b : T, op : (T, T) -> T) -> Bool {
 	return op(a, b) == op(b, a)
 }
 
-assert(isCommunicative(.Zero, One, min), "operationIsCommunicative(.Zero, One, min)")
+assert(isCommunicative(.Zero, b: One, op: min), "operationIsCommunicative(.Zero, One, min)")
 
 func <=(a : Natural, b : Natural) -> Bool {
 	return a == b || a < b
